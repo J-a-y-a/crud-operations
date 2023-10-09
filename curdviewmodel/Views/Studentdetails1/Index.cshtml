@@ -1,0 +1,608 @@
+﻿
+@model curdviewmodel.ViewModels.studentViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+     
+        textarea {
+            max-width: 465px !important;
+        }
+        .required-field::after {
+            content: "*";
+            color: red;
+            margin-left: 5px
+        }
+    </style>
+</head>
+<button class="btn btn-primary" id="btncreate" data-toggle="modal" data-target="#Student" onclick="AutoIncrementId(this)" style="float:right">Create</button>
+
+<table id="tblStudent" class="table-bordered">
+    <thead>
+        <tr>
+            @*<th>ID</th>*@
+            <th>Sid</th>
+            <th>Sname</th>
+            <th>Age</th>
+            <th>Adress</th>
+            <th>classes</th>
+            <th>Fname</th>
+            <th>Pno</th>
+            <th>Email</th>
+            <th>Pincode</th>
+            <th>   </th>
+            <th>  </th>
+        </tr>
+    </thead>
+</table>
+<div class=" alert-danger">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>
+<div class="modal fade" tabindex="-1" id="Student" data-keyboard="false" data-backdrop="static">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="modal-title">Studentdetails</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-danger" id="btnclose" data-dismiss="modal" aria-label="close" style="float:right">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id="StudentForm" name="registration">
+                    @* <div class="row" id="txtsid">*@
+                   @Html.HiddenFor(s => s.ID, new { @class = "form-control", @style = "width:100px;" })
+                    <div class="row">
+                        <div class="col-md-3"><label>Student Id </label><span class="required-field"></span></div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(s => s.Sid, new { @class = "form-control",  @style = "width:100px;" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.ValidationMessageFor(s => s.Sid, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3"><label>Student Name</label><span class="required-field"></span></div>
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(s => s.Sname, new { @class = "form-control", @style = "max-width:380px" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ValidationMessageFor(s => s.Sname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Father Name</label>
+                        </div>
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(s => s.Fname, new { @class = "form-control", @style = "max-width:380px" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ValidationMessageFor(s => s.Fname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Phone No</label><span class="required-field"></span>
+                        </div>
+                        <div class=" col-md-7">
+                            @Html.TextBoxFor(s => s.Phno, new { @class = "form-control", @style = "max-width:380px" })
+                        </div>
+                        <div class=" col-md-2">
+                            @Html.ValidationMessageFor(s => s.Phno, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Email</label><span class="required-field"></span>
+                        </div>
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(s => s.Gmail, new { @class = "form-control", @style = "max-width:380px" })
+                        </div>
+                        <div class=" col-md-2">
+                            @Html.ValidationMessageFor(s => s.Gmail, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Age</label>
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(s => s.Age, new { @class = "form-control", @style = "max-width:380px" })
+                            @Html.ValidationMessageFor(s => s.Age, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            <label>classes</label>
+                        </div>
+                        &nbsp;
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(s => s.classes, new { @class = "form-control", @style = "max-width:380px" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Adress</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Pincode</label><span class="required-field"></span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(s => s.Pincode, new { @class = "form-control"})
+                        </div>
+                        <div class="col-md-3">
+                            @Html.ValidationMessageFor(s => s.Pincode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(s => s.Adress, new { @class = "form-control", @cols = 80 })
+                            @Html.ValidationMessageFor(s => s.Adress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button id="btnsave" type="submit" class="btn btn-primary"> <span class="fa fa-save"></span>&nbsp;Save</button>
+                <button id="btncancel" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-close"></span>  Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            oTable = $('#tblStudent').DataTable({
+                "ajax": {
+                    //"url": "/Studentdetails1/GetStudent",
+                    "url": "@Url.Action("GetStudent", "Studentdetails1")",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    //{ "data": "ID", "autoWidth": true },
+                    { "data": "Sid", "autoWidth": true },
+                    { "data": "Sname", "autoWidth": true },
+                    { "data": "Age", "autoWidth": true },
+                    { "data": "Adress", "autoWidth": true },
+                    { "data": "classes", "autoWidth": true },
+                    { "data": "Fname", "autoWidth": true },
+                    { "data": "Phno", "autoWidth": true },
+                    { "data": "Gmail", "autoWidth": true },
+                    { "data": "Pincode", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-info"  data-toggle="modal" data-target="#Student" onclick=Edit(' + full.ID + ')>Edit</a>';
+                        }
+
+
+                        //"data": "ID", render: function (data) {
+                        //    return "<a class='btn btn-info' a href='#'>Edit</a>";
+                        //return "<a class='btn btn-info' a href='#' onclick=Edit(' + full.ID + ')>Edit</a>";
+                    },
+
+                    {
+                        data: null, render: function (data, type, row) {
+                            return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.ID + "'); >Delete</a>";
+                        }
+                    },
+                ]
+            });
+            $("#btnsave").click(function () {
+                SaveStudent();
+            });
+            $("#btncancel").click(function () {
+                clearTextBox();
+                //window.location.href = "/Studentdetails1/Index";
+            });
+            $("#btnclose").click(function () {
+                clearTextBox();
+                oTable.ajax.reload();
+               //window.location.href = "/Studentdetails1/Index";
+            });
+            //$("#btncreate").click(function () {
+            //    //function ShowPopup() {
+            //   // window.showModalDialog('/Studentdetails/GenerateStuCode');
+            //    $("#Student").modal('show');
+            //});
+
+        });
+
+        function AutoIncrementId() {
+           // var Code= $('#Sid').val();
+            debugger;
+            $.ajax({
+             type: "GET",
+              // "url": "/Studentdetails1/GenerateStudentCode",
+              url: '@Url.Action("GenerateStudentCode", "Studentdetails1")',
+              datatype: "json",
+             // data: {Code:Code},
+                success: function (result) {
+                    debugger;
+                    $("#Sid").val(result);
+                    $("#Sname").focus();
+
+                }
+            });
+        }
+
+            $("#Age").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                var length = $(this).val().length;
+                //var age1 = document.getElementById('Age').value;
+               // age1 = parseInt(age1);
+                if (length>2) {
+                   // alert("age>=18");
+                    return false;
+                }
+
+        });
+        $("#Phno").keypress(function (e) {
+            debugger;
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+        $("#Pincode").keypress(function (e) {
+           // var length = $(this).val().length;
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+            var length = $(this).val().length;
+            if (length > 5) {
+                return false;
+            }
+        });
+
+        $("#Sid").keypress(function (e) {
+            var length = $(this).val().length;
+            if (length > 4) {
+               // Sid.focus();
+
+                return false;
+            }
+
+        });
+
+        function clearTextBox() {
+            $('#Sid').focus();
+            $('#Sid').val("");
+            $('#Sname').val("");
+            $('#Age').val("");
+            $('#Adress').val("");
+            $('#classes').val("");
+            $('#Fname').val("");
+            $('#Phno').val("");
+            $('#Gmail').val("");
+            $('#Pincode').val("");
+
+        }
+
+        function Edit(id) {
+            debugger;
+              $.ajax({
+                  type: 'GET',
+                  //url: '/Edit/Studentdetails1/' + id,
+                  url: '@Url.Action("Edit", "Studentdetails1")/' + id,
+                  datatype: "json",
+                  data: { id: id },
+                  success: function (Result) {
+                     // cosole.log("Result");
+                      debugger;
+                      $('#ID').val(Result.ID);
+                      $('#Sid').val(Result.Sid);
+                      $("#Sid").attr("readonly", true)
+                     // $('#Sid').prop("disabled" ,true);
+                      $('#Sname').val(Result.Sname);
+                      $("#Age").val(Result.Age);
+                      $("#Adress").val(Result.Adress);
+                      $("#classes").val(Result.classes);
+                      $("#Fname").val(Result.Fname);
+                      $("#Phno").val(Result.Phno);
+                      $("#Gmail").val(Result.Gmail);
+                      $("#Pincode").val(Result.Pincode);
+                     // $('#btnedit').removeClass("hidden");
+                     // $('#Student').show();
+                      $('#Sname').focus();
+                      $("#btnsave")[0].textContent = "update";
+                  },
+
+              });
+        }
+        function DeleteData(ID) {
+            debugger;
+            if (confirm("Are you sure you want to delete ...?")) {
+                Delete(ID);
+                window.location.href = "/Studentdetails1/Index";
+                oTable.ajax.reload();
+            }
+            else {
+                return false;
+            }
+        }
+            function Delete(ID) {
+                debugger;
+                var url = '@Url.Content("~/")' + "Studentdetails1/DeleteStudent";
+                $.post(url, { ID: ID }, function (data) {
+                    if (data.data) {
+                        alert(data.data);
+                       // oTable.ajax.reload();
+                    }
+                    else {
+                        alert("your record has deleted successfully");
+                    //    //alert("something went wrong");
+                    }
+                });
+            }
+        function Savedata() {
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Save", "Studentdetails1")',
+                data: $("#StudentForm").serialize(),
+                dataType: "json",
+                success: function (response) {
+                    if (response.success == true) {
+                        alert(response.message);
+                        oTable.ajax.reload();
+                        //$('#Sid').focus();
+                       window.location.href = "/Studentdetails1/Index";
+                    }
+                }
+            });
+        }
+
+
+        function SaveStudent() {
+            debugger;
+            var stuid = document.registration.ID;
+            var studentid = document.registration.Sid;
+
+            if (stuid.value == 0) {
+                if (studentidvalidation(studentid)) {
+                    var getid = stuid.value;
+                    var getsid = studentid.value
+                    if (getsid != null && getid==0) {
+                        $.ajax({
+                            type: "GET",
+                            url: '@Url.Action("GetstudentbyId", "Studentdetails1")/',
+                            datatype: "json",
+                            data: { Stuid: getsid },
+                            success: function (response) {
+                                if (response.result) {
+                                    alert("Sid already exists");
+                                    $('#Sid').focus();
+                                    return false;
+                                }
+                                else {
+                                    formValidation();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        Savedata();
+                    }
+                }
+            }
+            else {
+                formValidation();
+            }
+            return false;
+        }
+        function formValidation() {
+            var stuname = document.registration.Sname;
+            var Fathername = document.registration.Fname;
+            var stuphno = document.registration.Phno;
+            var stuemail = document.registration.Gmail;
+            var stuage = document.registration.Age;
+            var stuclass = document.registration.classes;
+            var pin = document.registration.Pincode;
+            var stuaddress = document.registration.Adress;
+            if (stunamevalidation(stuname)) {
+                if (Fathernamevalidation(Fathername)) {
+                    if (stuphnoval(stuphno)) {
+                        if (stuemailval(stuemail)) {
+                            if (stuageval(stuage)) {
+                                if (stuclassval(stuclass)) {
+                                    if (pinval(pin)) {
+                                        if (stuaddressval(stuaddress)) {
+                                            debugger;
+                                            Savedata();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        function studentidvalidation(studentid)
+        {
+            debugger;
+            var sid_len = studentid.value.length;
+            if (sid_len == 0) {
+                alert("Sid should not be empty ");
+                studentid.focus();
+                return false;
+            }
+            else {
+                return true;
+
+
+            }
+
+        }
+        function stunamevalidation(stuname)
+        {
+            var sname_len = stuname.value.length;
+
+            if (sname_len == 0) {
+                alert("Sname should not be empty ");
+                stuname.focus();
+                return false;
+            }
+            var letters = /^[a-zA-Z0-9]+$/;
+            if (stuname.value.match(letters)) {
+                return true;
+            }
+            else {
+                alert('Sname must have alphanumerics  only');
+                stuname.focus();
+                return false;
+            }
+        }
+        function Fathernamevalidation(Fathername)
+        {
+
+            var letters = /^[a-zA-Z0-9]+$/;
+            if (Fathername.value.match(letters) || Fathername.value=="")
+            {
+               // alert('Fname must have alphanumerics  only');
+                return true;
+
+            }
+             else
+             {
+                alert('Fname must have alphanumerics  only');
+                return false;
+            }
+        }
+        function stuphnoval(stuphno) {
+            debugger;
+            var stuphno_len = stuphno.value.length;
+
+            if (stuphno_len == 0) {
+                alert("Phone number should not be empty ");
+                stuphno.focus();
+                return false;
+            }
+            var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+            var mobileno = /^((\\+91-?)|0)?[0-9]{10}$/;
+            // var letters = /^[0-9]+$/;
+            if ((stuphno.value.match(phoneno)) || stuphno.value.match(mobileno))
+            {
+                return true;
+            }
+            else
+            {
+                alert('Invalid Phonenumber');
+                stuphno.focus();
+                return false;
+            }
+        }
+
+        function stuemailval(stuemail) {
+            var stuemail_len = stuemail.value.length;
+
+            if (stuemail_len == 0) {
+                alert("gmail should not be empty ");
+                stuemail.focus();
+                return false;
+            }
+            var mailformat =/^\w+([-+.']\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+
+            if (stuemail.value.match(mailformat)) {
+                return true;
+            }
+            else {
+                alert("You have entered an invalid gmail address!");
+                stuemail.focus();
+                return false;
+            }
+        }
+
+
+            function stuageval(stuage)
+            {
+                debugger;
+                if (stuage.value == "") {
+                    return true;
+                }
+
+               else if (stuage.value<18) {
+                    alert("age must be greater than or equal to 18")
+                    stuage.focus();
+                    return false;
+                }
+                return true;
+            }
+
+
+            function stuclassval(stuclass) {
+                var numbers = /^[0-9]+$/;
+                if (stuclass.value.match(numbers)||stuclass.value=="") {
+                    return true;
+                }
+                else {
+                    alert('class  must have numeric only');
+                    stuclass.focus();
+                    return false;
+                }
+            }
+
+
+        function pinval(pin) {
+            var pin_len = pin.value.length;
+
+            if (pin_len == 0) {
+                alert("Pincode should not be empty ");
+                pin.focus();
+                return false;
+            }
+                    var letters = /^[0-9]{6}$/;
+                    if (pin.value.match(letters)) {
+                        return true;
+                    }
+                    else {
+                        alert('stupin  must be 6 digits');
+                        pin.focus();
+                        return false;
+                    }
+                }
+                function stuaddressval(stuaddress) {
+                    var letters = /^[a-zA-Z0-9]+$/;
+                    //var passid_len = passid.value.length;
+                    if (stuaddress.value.match(letters) || stuaddress.value=="") {
+                        return true;
+
+                    }
+                    else  {
+                        alert('stuaddress must have alphanumerics  only');
+                        stuaddress.focus();
+                        return false;
+                    }
+                }
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
